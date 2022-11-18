@@ -80,13 +80,15 @@ public class ClientInitializer implements ClientModInitializer {
         registerConfigSync();
 
         // Tooltip for chains.
-        if (ConnectibleChains.runtimeConfig.doShowToolTip()){
-            ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
+
+        ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
+            if (ConnectibleChains.fileConfig.doShowToolTip()){
                 if (ChainTypesRegistry.ITEM_CHAIN_TYPES.containsKey(stack.getItem())){
                     lines.add(1, new TranslatableText("message.connectiblechains.connectible_chain").formatted(Formatting.DARK_GRAY, Formatting.ITALIC));
                 }
-            });
-        }
+            }
+        });
+
 
     }
 
