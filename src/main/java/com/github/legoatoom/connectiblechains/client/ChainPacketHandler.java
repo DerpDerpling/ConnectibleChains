@@ -107,7 +107,7 @@ public class ChainPacketHandler {
                             collider.setSourceItem(Registries.ITEM.get(typeId));
                         }
                         assert client.world != null;
-                        client.world.addEntity(entityId, e);
+                        client.world.addEntity(e);
                     });
                 });
 
@@ -129,7 +129,7 @@ public class ChainPacketHandler {
                             knot.setGraceTicks((byte) 0);
                         }
                         assert client.world != null;
-                        client.world.addEntity(entityId, e);
+                        client.world.addEntity(e);
                     });
                 });
 

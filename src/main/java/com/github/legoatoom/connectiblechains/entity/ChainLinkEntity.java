@@ -19,6 +19,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.listener.ClientCommonPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -83,4 +85,6 @@ public interface ChainLinkEntity {
      * @param mayDrop true when the links should drop
      */
     void destroyLinks(boolean mayDrop);
+
+    Packet<ClientCommonPacketListener> createChainCollisionSpawnPacket();
 }

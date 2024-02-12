@@ -41,7 +41,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.listener.ClientCommonPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.BlockTags;
@@ -702,12 +702,12 @@ public class ChainKnotEntity extends AbstractDecorationEntity implements ChainLi
      * @see PacketCreator
      */
     @Override
-    public Packet<ClientPlayPacketListener> createSpawnPacket() {
+    public Packet<ClientCommonPacketListener> createChainCollisionSpawnPacket() {
         Function<PacketByteBuf, PacketByteBuf> extraData = packetByteBuf -> {
             packetByteBuf.writeVarInt(Registries.ITEM.getRawId(chainItemSource));
             return packetByteBuf;
         };
-        return PacketCreator.createSpawn(this, NetworkingPackets.S2C_SPAWN_CHAIN_KNOT_PACKET, extraData);
+        return PacketCreator.createMultiAttach(this);
     }
 
     /**

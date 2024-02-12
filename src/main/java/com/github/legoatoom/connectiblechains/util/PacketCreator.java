@@ -22,11 +22,10 @@ import it.unimi.dsi.fastutil.ints.IntList;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.listener.ClientCommonPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Function;
@@ -43,7 +42,7 @@ public class PacketCreator {
      * @param extraData Extra data supplier
      * @return A S2C packet
      */
-    public static Packet<ClientPlayPacketListener> createSpawn(Entity entity, Identifier packetID, Function<PacketByteBuf, PacketByteBuf> extraData) {
+    public static Packet<ClientCommonPacketListener> createSpawn(Entity entity, Identifier packetID, Function<PacketByteBuf, PacketByteBuf> extraData) {
         if (entity.getWorld().isClient)
             throw new IllegalStateException("Called on the logical client!");
         PacketByteBuf byteBuf = new PacketByteBuf(Unpooled.buffer());
@@ -63,8 +62,7 @@ public class PacketCreator {
      * @param knot the primary knot
      * @return Packet or null if no data is to be sent
      */
-    @Nullable
-    public static Packet<ClientPlayPacketListener> createMultiAttach(ChainKnotEntity knot) {
+    public static Packet<ClientCommonPacketListener> createMultiAttach(ChainKnotEntity knot) {
         PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
         List<ChainLink> links = knot.getLinks();
         IntList ids = new IntArrayList(links.size());

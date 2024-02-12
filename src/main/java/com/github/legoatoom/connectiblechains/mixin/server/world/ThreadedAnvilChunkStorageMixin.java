@@ -29,8 +29,6 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -48,11 +46,7 @@ public abstract class ThreadedAnvilChunkStorageMixin {
     @Shadow
     @Final
     private Int2ObjectMap<ThreadedAnvilChunkStorage.EntityTracker> entityTrackers;
-
-    @Inject(
-            method = "sendChunkDataPackets",
-            at = @At(value = "TAIL")
-    )
+//didn't know how to fix
     private void sendAttachChainPackets(ServerPlayerEntity player, MutableObject<ChunkDataS2CPacket> cachedDataPacket, WorldChunk chunk, CallbackInfo ci) {
         // TODO: 01/04/2023 Figure out why this is needed and document this better
         ObjectIterator<ThreadedAnvilChunkStorage.EntityTracker> trackers = this.entityTrackers.values().iterator();

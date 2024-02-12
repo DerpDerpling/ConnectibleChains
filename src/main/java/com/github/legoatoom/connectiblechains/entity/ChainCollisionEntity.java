@@ -30,7 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.listener.ClientCommonPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundEvents;
@@ -196,7 +196,7 @@ public class ChainCollisionEntity extends Entity implements ChainLinkEntity {
      * Links are handled server-side.
      */
     @Override
-    public Packet<ClientPlayPacketListener> createSpawnPacket() {
+    public Packet<ClientCommonPacketListener> createChainCollisionSpawnPacket() {
         Function<PacketByteBuf, PacketByteBuf> extraData = packetByteBuf
                 -> packetByteBuf.writeVarInt(Registries.ITEM.getRawId(link == null ? Items.CHAIN : link.sourceItem));
         return PacketCreator.createSpawn(this, NetworkingPackets.S2C_SPAWN_CHAIN_COLLISION_PACKET, extraData);
